@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		07E81F471C8A530D003C6A31 /* LoopBack.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 07E81F461C8A530D003C6A31 /* LoopBack.framework */; };
 		07F4B1761C88F52E0063E43A /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 07F4B1751C88F52E0063E43A /* main.m */; };
 		07F4B1791C88F52E0063E43A /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 07F4B1781C88F52E0063E43A /* AppDelegate.m */; };
 		07F4B17C1C88F52E0063E43A /* ViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 07F4B17B1C88F52E0063E43A /* ViewController.m */; };
@@ -15,6 +16,9 @@
 		07F4B1841C88F52E0063E43A /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 07F4B1821C88F52E0063E43A /* LaunchScreen.storyboard */; };
 		07F4B18F1C88F52F0063E43A /* shoppinglistTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 07F4B18E1C88F52F0063E43A /* shoppinglistTests.m */; };
 		07F4B19A1C88F52F0063E43A /* shoppinglistUITests.m in Sources */ = {isa = PBXBuildFile; fileRef = 07F4B1991C88F52F0063E43A /* shoppinglistUITests.m */; };
+		07F4B1A81C88F5F80063E43A /* SLTableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 07F4B1A71C88F5F80063E43A /* SLTableViewController.m */; };
+		07F4B1AB1C88FEC40063E43A /* SLTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 07F4B1AA1C88FEC40063E43A /* SLTableViewCell.m */; };
+		07F4B1AE1C8900410063E43A /* SLShoppingListItem.m in Sources */ = {isa = PBXBuildFile; fileRef = 07F4B1AD1C8900410063E43A /* SLShoppingListItem.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -35,6 +39,7 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		07E81F461C8A530D003C6A31 /* LoopBack.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = LoopBack.framework; sourceTree = "<group>"; };
 		07F4B1711C88F52E0063E43A /* shoppinglist.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = shoppinglist.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		07F4B1751C88F52E0063E43A /* main.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
 		07F4B1771C88F52E0063E43A /* AppDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AppDelegate.h; sourceTree = "<group>"; };
@@ -51,6 +56,12 @@
 		07F4B1951C88F52F0063E43A /* shoppinglistUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = shoppinglistUITests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		07F4B1991C88F52F0063E43A /* shoppinglistUITests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = shoppinglistUITests.m; sourceTree = "<group>"; };
 		07F4B19B1C88F52F0063E43A /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		07F4B1A71C88F5F80063E43A /* SLTableViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SLTableViewController.m; sourceTree = "<group>"; };
+		07F4B1A91C88F60A0063E43A /* SLTableViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SLTableViewController.h; sourceTree = "<group>"; };
+		07F4B1AA1C88FEC40063E43A /* SLTableViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SLTableViewCell.m; sourceTree = "<group>"; };
+		07F4B1AC1C88FECE0063E43A /* SLTableViewCell.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = SLTableViewCell.h; sourceTree = "<group>"; };
+		07F4B1AD1C8900410063E43A /* SLShoppingListItem.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SLShoppingListItem.m; sourceTree = "<group>"; };
+		07F4B1AF1C89004D0063E43A /* SLShoppingListItem.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SLShoppingListItem.h; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -58,6 +69,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				07E81F471C8A530D003C6A31 /* LoopBack.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -81,6 +93,7 @@
 		07F4B1681C88F52E0063E43A = {
 			isa = PBXGroup;
 			children = (
+				07E81F461C8A530D003C6A31 /* LoopBack.framework */,
 				07F4B1731C88F52E0063E43A /* shoppinglist */,
 				07F4B18D1C88F52F0063E43A /* shoppinglistTests */,
 				07F4B1981C88F52F0063E43A /* shoppinglistUITests */,
@@ -110,6 +123,12 @@
 				07F4B1821C88F52E0063E43A /* LaunchScreen.storyboard */,
 				07F4B1851C88F52E0063E43A /* Info.plist */,
 				07F4B1741C88F52E0063E43A /* Supporting Files */,
+				07F4B1A71C88F5F80063E43A /* SLTableViewController.m */,
+				07F4B1A91C88F60A0063E43A /* SLTableViewController.h */,
+				07F4B1AA1C88FEC40063E43A /* SLTableViewCell.m */,
+				07F4B1AC1C88FECE0063E43A /* SLTableViewCell.h */,
+				07F4B1AD1C8900410063E43A /* SLShoppingListItem.m */,
+				07F4B1AF1C89004D0063E43A /* SLShoppingListItem.h */,
 			);
 			path = shoppinglist;
 			sourceTree = "<group>";
@@ -273,9 +292,12 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				07F4B1A81C88F5F80063E43A /* SLTableViewController.m in Sources */,
+				07F4B1AE1C8900410063E43A /* SLShoppingListItem.m in Sources */,
 				07F4B17C1C88F52E0063E43A /* ViewController.m in Sources */,
 				07F4B1791C88F52E0063E43A /* AppDelegate.m in Sources */,
 				07F4B1761C88F52E0063E43A /* main.m in Sources */,
+				07F4B1AB1C88FEC40063E43A /* SLTableViewCell.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -416,10 +438,20 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CLANG_ENABLE_MODULES = YES;
+				DEFINES_MODULE = YES;
+				FRAMEWORK_SEARCH_PATHS = (
+					"$(inherited)",
+					"$(PROJECT_DIR)",
+				);
+				GCC_PREFIX_HEADER = "";
+				HEADER_SEARCH_PATHS = "";
 				INFOPLIST_FILE = shoppinglist/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
+				OTHER_LDFLAGS = "";
 				PRODUCT_BUNDLE_IDENTIFIER = com.elanini.shoppinglist;
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
 			};
 			name = Debug;
 		};
@@ -427,8 +459,17 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CLANG_ENABLE_MODULES = YES;
+				DEFINES_MODULE = YES;
+				FRAMEWORK_SEARCH_PATHS = (
+					"$(inherited)",
+					"$(PROJECT_DIR)",
+				);
+				GCC_PREFIX_HEADER = "";
+				HEADER_SEARCH_PATHS = "";
 				INFOPLIST_FILE = shoppinglist/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
+				OTHER_LDFLAGS = "";
 				PRODUCT_BUNDLE_IDENTIFIER = com.elanini.shoppinglist;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 			};
@@ -501,6 +542,7 @@
 				07F4B1A01C88F52F0063E43A /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 		07F4B1A11C88F52F0063E43A /* Build configuration list for PBXNativeTarget "shoppinglistTests" */ = {
 			isa = XCConfigurationList;
@@ -509,6 +551,7 @@
 				07F4B1A31C88F52F0063E43A /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 		07F4B1A41C88F52F0063E43A /* Build configuration list for PBXNativeTarget "shoppinglistUITests" */ = {
 			isa = XCConfigurationList;
@@ -517,6 +560,7 @@
 				07F4B1A61C88F52F0063E43A /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
 	};

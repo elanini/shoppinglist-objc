@@ -7,6 +7,7 @@
 //
 
 #import "AppDelegate.h"
+#import <LoopBack/LoopBack.h>
 
 @interface AppDelegate ()
 
