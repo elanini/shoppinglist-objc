@@ -7,7 +7,7 @@
 //
 
 #import "AppDelegate.h"
-#import <LoopBack/LoopBack.h>
+#import "SLTableViewController.h"
 
 @interface AppDelegate ()
 
@@ -16,8 +16,25 @@
 @implementation AppDelegate
 
 
+
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions {
-    UITabBar *tabBar = ((UITabBarController*)[self.window.rootViewController.childViewControllers firstObject]).tabBar;
+    UITabBarController *tbc = (UITabBarController*)self.window.rootViewController;
+    
+    SLTableViewController *vc1 = [[SLTableViewController alloc] init];
+    vc1.title = @"Necessary";
+    vc1.navigationItem.rightBarButtonItem = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemAdd target:vc1 action:@selector(myRightButton)];
+    SLTableViewController *vc2 = [[SLTableViewController alloc] init];
+    vc2.title = @"Optional";
+    vc2.navigationItem.rightBarButtonItem = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemAdd target:vc2 action:@selector(myRightButton)];
+    
+    
+    UINavigationController *navc1 = [[UINavigationController alloc] initWithRootViewController:vc1];
+    UINavigationController *navc2 = [[UINavigationController alloc] initWithRootViewController:vc2];
+
+    
+    tbc.viewControllers = [NSArray arrayWithObjects:navc1, navc2,nil];
+
+    UITabBar *tabBar = tbc.tabBar;
     
     UITabBarItem *item = [tabBar.items objectAtIndex:0];
     UIImage *selectedImage = [UIImage imageNamed:@"nec-tab-sel"];
@@ -35,17 +52,6 @@
     [item2 setImage:unselectedImage];
     [item2 setSelectedImage:selectedImage];
 
-
-    //    UITabBarController *tabController = (UITabBarController *)self.window.rootViewController;
-//    UITabBar *tabBar = (UITabBar*)tabController.tabBar;
-//    
-//    UITabBarItem *item1 = [tabBar.items objectAtIndex:0];
-//    UIImage *selectedImage = [UIImage imageNamed:@"nec-tab-image"];
-//    selectedImage = [selectedImage imageWithRenderingMode:UIImageRenderingModeAlwaysOriginal];
-//    UIImage *unselectedImage = [UIImage imageNamed:@"nec-tab-image"];
-//    unselectedImage = [unselectedImage imageWithRenderingMode:UIImageRenderingModeAlwaysOriginal];
-//    [item1 setImage:unselectedImage];
-//    [item1 setSelectedImage:selectedImage];
 
     // Override point for customization after application launch.
     return YES;

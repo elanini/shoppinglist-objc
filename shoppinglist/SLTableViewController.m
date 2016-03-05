@@ -38,6 +38,7 @@
 
 -(void)refreshData
 {
+    NSLog(@"vc title = %@", self.title);
     LBModelRepository *objectB = [self.adapter repositoryWithModelName:@"ShoppingListItems"];
 
     void (^staticMethodSuccessBlock)(NSArray *) = ^(NSArray *useless) {
@@ -47,7 +48,7 @@
         NSLog(@"running success block, time = %@", self.latestDataTime);
         [MBProgressHUD showHUDAddedTo:self.view animated:YES];
         dispatch_async(dispatch_get_global_queue( DISPATCH_QUEUE_PRIORITY_LOW, 0), ^{
-            [objectB invokeStaticMethod:@"filter" parameters:@{@"filter[where][listType]":[self currentTitle]} success:^(NSArray *models) {
+            [objectB invokeStaticMethod:@"filter" parameters:@{@"filter[where][listType]":self.title} success:^(NSArray *models) {
                 NSMutableArray *shoppingList = [[NSMutableArray alloc] initWithCapacity:models.count];
                 for (LBModel *model in models) {
                     SLShoppingListItem *item = [[SLShoppingListItem alloc] init];
@@ -74,10 +75,12 @@
     
 }
 
+
+
 -(void)addItemWithText:(NSString*)itemText
 {
     LBModelRepository *objectB = [self.adapter repositoryWithModelName:@"ShoppingListItems"];
-    NSLog(@"self title = %@", self.navigationController.visibleViewController.title);
+    NSLog(@"self title = %@ or %@", self.title, [self currentTitle]);
     LBModel *model = [objectB modelWithDictionary:@{
                                                     @"itemText" : itemText,
                                                     @"isComplete": @(NO),
@@ -93,7 +96,7 @@
 
 -(NSString*)currentTitle
 {
-    return ((UITabBarController*)self.navigationController.visibleViewController).selectedViewController.title;
+    return self.title;
 }
 
 -(void)viewDidLoad
@@ -109,7 +112,6 @@
                                    userInfo:nil
                                     repeats:YES];
 
-    self.parentViewController.navigationItem.rightBarButtonItem = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemAdd target:self action:@selector(myRightButton)];
 
 }
 
