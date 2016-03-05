@@ -16,6 +16,7 @@
 @property NSArray *shoppingList;
 @property (strong, nonatomic) LBRESTAdapter *adapter;
 @property (nonatomic) NSNumber *latestDataTime;
+@property NSString *vcTitle;
 @end
 
 @implementation SLTableViewController
@@ -49,7 +50,7 @@
             [objectB allWithSuccess:^(NSArray *models) {
                 NSMutableArray *shoppingList = [[NSMutableArray alloc] initWithCapacity:models.count];
                 for (LBModel *model in models) {
-                    if ([model[@"listType"] isEqualToString:self.title])
+                    if ([model[@"listType"] isEqualToString:[self currentTitle]])
                     {
                         SLShoppingListItem *item = [[SLShoppingListItem alloc] init];
                         item.itemText = model[@"itemText"];
@@ -81,10 +82,11 @@
 -(void)addItemWithText:(NSString*)itemText
 {
     LBModelRepository *objectB = [self.adapter repositoryWithModelName:@"ShoppingListItems"];
+    NSLog(@"self title = %@", self.navigationController.visibleViewController.title);
     LBModel *model = [objectB modelWithDictionary:@{
                                                     @"itemText" : itemText,
                                                     @"isComplete": @(NO),
-                                                    @"listType": self.title
+                                                    @"listType": [self currentTitle]
                                                     }];
     [model saveWithSuccess:^{
         NSLog(@"success");
@@ -94,9 +96,14 @@
     [self refreshData];
 }
 
+-(NSString*)currentTitle
+{
+    return ((UITabBarController*)self.navigationController.visibleViewController).selectedViewController.title;
+}
+
 -(void)viewDidLoad
 {
-    NSLog(@"view controller title = %@", self.title);
+    
     [super viewDidLoad];
     [[ [self adapter] contract] addItem:[SLRESTContractItem itemWithPattern:@"/ShoppingListItems" verb:@"GET"] forMethod:@"ShoppingListItems.filter"];
 
