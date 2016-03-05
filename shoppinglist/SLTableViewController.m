@@ -10,73 +10,128 @@
 #import "SLTableViewCell.h"
 #import "SLShoppingListItem.h"
 #import <LoopBack/LoopBack.h>
+#import "MBProgressHUD.h"
 
 @interface SLTableViewController ()
 @property NSArray *shoppingList;
-@property (weak, nonatomic) LBRESTAdapter *adapter;
+@property (strong, nonatomic) LBRESTAdapter *adapter;
+@property (nonatomic) NSNumber *latestDataTime;
 @end
 
 @implementation SLTableViewController
 
+-(NSNumber *)latestDataTime
+{
+    if (!_latestDataTime)
+        _latestDataTime = [[NSNumber alloc] initWithInt:0];
+    return _latestDataTime;
+}
+
 - (LBRESTAdapter *) adapter
 {
     if( !_adapter)
-        _adapter = [LBRESTAdapter adapterWithURL:[NSURL URLWithString:@"http://localhost:3000"]];
+        _adapter = [LBRESTAdapter adapterWithURL:[NSURL URLWithString:@"http://localhost:3000/api/"]];
     return _adapter;
 }
 
 
 -(void)refreshData
 {
-    NSURL *url = [NSURL URLWithString:@"http://localhost:3000/api/ShoppingListItems"];
-    NSURLRequest *request = [NSURLRequest requestWithURL:url];
-    [NSURLConnection sendAsynchronousRequest:request
-                                       queue:[NSOperationQueue mainQueue]
-                           completionHandler:^(NSURLResponse *response,
-                                               NSData *data, NSError *connectionError)
-     {
-         if (data.length > 0 && connectionError == nil)
-         {
-             NSArray *entries = [NSJSONSerialization JSONObjectWithData:data
-                                                                      options:0
-                                                                        error:NULL];
-             //NSLog(@"%@", [entries objectAtIndex:0]);
-             NSMutableArray *shoppingList = [[NSMutableArray alloc] initWithCapacity:entries.count];
+    LBModelRepository *objectB = [self.adapter repositoryWithModelName:@"ShoppingListItems"];
 
-             
-             for (NSDictionary *entry in entries) {
-                 for( NSString *aKey in [entry allKeys] )
-                 {
-                     // do something like a log:
-                     NSLog(@"%@ = %@; class = %@", aKey, entry[aKey], [entry[aKey] class]);
-                 }
+    void (^staticMethodSuccessBlock)(NSArray *) = ^(NSArray *useless) {
+        if (useless.count == 0)
+            return;
+        self.latestDataTime = [NSNumber numberWithUnsignedLongLong:[[NSDate date] timeIntervalSince1970]*1000];
+        NSLog(@"running success block, time = %@", self.latestDataTime);
+        [MBProgressHUD showHUDAddedTo:self.view animated:YES];
+        dispatch_async(dispatch_get_global_queue( DISPATCH_QUEUE_PRIORITY_LOW, 0), ^{
+            [objectB allWithSuccess:^(NSArray *models) {
+                NSMutableArray *shoppingList = [[NSMutableArray alloc] initWithCapacity:models.count];
+                for (LBModel *model in models) {
+                    if ([model[@"listType"] isEqualToString:self.title])
+                    {
+                        SLShoppingListItem *item = [[SLShoppingListItem alloc] init];
+                        item.itemText = model[@"itemText"];
+                        item.completed = [model[@"isComplete"]  isEqual: @1] ? YES : NO;
+                        item.itemId = model[@"id"];
+                        [shoppingList addObject:item];
+    
+                    }
+                }
+                self.shoppingList = [shoppingList copy];
+                [self.tableView reloadData];
+    
+            } failure:^(NSError *error) {
+                NSLog(@"error %@", error);
+            }];
+            dispatch_async(dispatch_get_main_queue(), ^{
+                [MBProgressHUD hideHUDForView:self.view animated:YES];
+            });
+            
+        });
+    };
+    
+    [objectB invokeStaticMethod:@"filter" parameters:@{@"filter[where][timestamp][gt]":self.latestDataTime} success:staticMethodSuccessBlock failure:^(NSError *error) {
+        NSLog(@"fail");
+    }];
+    
+}
 
-                 if ([entry[@"listType"] isEqualToString:@"Necessary"]) {
-                     SLShoppingListItem *item = [[SLShoppingListItem alloc] init];
-                     item.itemText = entry[@"itemText"];
-                     item.completed = [entry[@"isComplete"]  isEqual: @1] ? YES : NO;
-                     item.itemId = entry[@"id"];
-                     [shoppingList addObject:item];
-                 }
-             }
-             self.shoppingList = [shoppingList copy];
-             [self.tableView reloadData];
-         }
-     }];
-
+-(void)addItemWithText:(NSString*)itemText
+{
+    LBModelRepository *objectB = [self.adapter repositoryWithModelName:@"ShoppingListItems"];
+    LBModel *model = [objectB modelWithDictionary:@{
+                                                    @"itemText" : itemText,
+                                                    @"isComplete": @(NO),
+                                                    @"listType": self.title
+                                                    }];
+    [model saveWithSuccess:^{
+        NSLog(@"success");
+    } failure:^(NSError *error) {
+        NSLog(@"fail");
+    }];
+    [self refreshData];
 }
 
 -(void)viewDidLoad
 {
+    NSLog(@"view controller title = %@", self.title);
     [super viewDidLoad];
+    [[ [self adapter] contract] addItem:[SLRESTContractItem itemWithPattern:@"/ShoppingListItems" verb:@"GET"] forMethod:@"ShoppingListItems.filter"];
+
     [self refreshData];
-    
+    [NSTimer scheduledTimerWithTimeInterval:1.0
+                                     target:self
+                                   selector:@selector(refreshData)
+                                   userInfo:nil
+                                    repeats:YES];
+
+    self.parentViewController.navigationItem.rightBarButtonItem = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemAdd target:self action:@selector(myRightButton)];
+
     
     NSMutableArray *shoppingList = [[NSMutableArray alloc] initWithCapacity:100];
     for (int i=0; i<100; i++) {
         [shoppingList addObject:[SLShoppingListItem initWithItemText:[NSString stringWithFormat:@"Item %d", i] completed:NO]];
     }
     self.shoppingList = [shoppingList copy];
+}
+
+-(void)myRightButton
+{
+    UIAlertController* alert = [UIAlertController alertControllerWithTitle:@"My Alert"
+                                                                   message:@"This is an alert."
+                                                            preferredStyle:UIAlertControllerStyleAlert];
+    [alert addTextFieldWithConfigurationHandler:^(UITextField * _Nonnull textField) {}];
+    
+    UIAlertAction *cancelAction = [UIAlertAction actionWithTitle:@"Cancel" style:UIAlertActionStyleCancel handler:^(UIAlertAction * action) {}];
+    UIAlertAction* defaultAction = [UIAlertAction actionWithTitle:@"OK" style:UIAlertActionStyleDefault
+                                                          handler:^(UIAlertAction * action) {
+                                                              [self addItemWithText:alert.textFields[0].text];
+                                                          }];
+    [alert addAction:defaultAction];
+    [alert addAction:cancelAction];
+    [self presentViewController:alert animated:YES completion:nil];
 }
 
 -(void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
@@ -97,35 +152,19 @@
 
 -(void)pushChangeForItem:(SLShoppingListItem*)item
 {
-    NSDictionary *itemDict = @{
-                               @"isComplete" : item.completed ? @YES : @NO,
-                               @"id" : item.itemId,
-                               @"itemText" : item.itemText,
-                               @"listType" : @"Necessary"
-                               };
-    NSLog(@"class = %@; class = %@", [itemDict[@"isComplete"] class], [itemDict[@"id"] class]);
-    NSError *error;
-    NSData *postdata = [NSJSONSerialization dataWithJSONObject:itemDict
-                                                       options:0
-                                                         error:&error];
-
-    NSURL *url = [NSURL URLWithString:@"http://localhost:3000/api/ShoppingListItems"];
-    NSMutableURLRequest *request = [NSMutableURLRequest requestWithURL:url];
-    request.HTTPMethod = @"PUT";
-    request.HTTPBody = postdata;
-    NSLog(@"postdata = %@", itemDict);
-    [NSURLConnection sendAsynchronousRequest:request
-                                       queue:[NSOperationQueue mainQueue]
-                           completionHandler:^(NSURLResponse *response,
-                                               NSData *data, NSError *connectionError)
-     {
-         if (data.length > 0 && connectionError == nil)
-         {
-             [self.tableView reloadData];
-             NSLog(@"completed?");
-         }
-     }];
-
+    LBModelRepository *objectB = [self.adapter repositoryWithModelName:@"ShoppingListItems"];
+    [objectB findById:item.itemId success:^(LBModel *model) {
+        NSLog(@"model isComplete class = %@", [model[@"isComplete"] class]);
+        model[@"isComplete"] = item.completed ? @(YES) : @(NO);
+        
+        [model saveWithSuccess:^{
+            NSLog(@"success");
+        } failure:^(NSError *error) {
+            NSLog(@"fail");
+        }];
+    } failure:^(NSError *error) {
+        NSLog(@"didnt find item");
+    }];
 }
 
 -(UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath

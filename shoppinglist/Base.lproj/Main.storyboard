@@ -5,10 +5,10 @@
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="9529"/>
     </dependencies>
     <scenes>
-        <!--optional-->
+        <!--Optional-->
         <scene sceneID="fFF-SA-3D8">
             <objects>
-                <tableViewController restorationIdentifier="optional" title="optional" id="2zr-Hu-SAS" customClass="SLTableViewController" sceneMemberID="viewController">
+                <tableViewController restorationIdentifier="Optional" title="Optional" id="2zr-Hu-SAS" customClass="SLTableViewController" sceneMemberID="viewController">
                     <tableView key="view" clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="44" sectionHeaderHeight="28" sectionFooterHeight="28" id="fR6-b2-saH">
                         <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
@@ -37,10 +37,10 @@
             </objects>
             <point key="canvasLocation" x="620" y="1666"/>
         </scene>
-        <!--necessary-->
+        <!--Necessary-->
         <scene sceneID="dZN-Dk-zWn">
             <objects>
-                <tableViewController restorationIdentifier="necessary" title="necessary" id="Zjg-WA-W73" customClass="SLTableViewController" sceneMemberID="viewController">
+                <tableViewController restorationIdentifier="Necessary" title="Necessary" id="Zjg-WA-W73" customClass="SLTableViewController" sceneMemberID="viewController">
                     <tableView key="view" clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="44" sectionHeaderHeight="28" sectionFooterHeight="28" id="h4j-oP-jLb">
                         <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
@@ -61,6 +61,8 @@
                         </connections>
                     </tableView>
                     <tabBarItem key="tabBarItem" title="Necessary" id="oav-j3-EUO"/>
+                    <toolbarItems/>
+                    <simulatedToolbarMetrics key="simulatedBottomBarMetrics"/>
                     <connections>
                         <outlet property="tableView" destination="h4j-oP-jLb" id="3Yw-0Q-kyT"/>
                     </connections>
