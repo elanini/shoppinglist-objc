@@ -47,18 +47,14 @@
         NSLog(@"running success block, time = %@", self.latestDataTime);
         [MBProgressHUD showHUDAddedTo:self.view animated:YES];
         dispatch_async(dispatch_get_global_queue( DISPATCH_QUEUE_PRIORITY_LOW, 0), ^{
-            [objectB allWithSuccess:^(NSArray *models) {
+            [objectB invokeStaticMethod:@"filter" parameters:@{@"filter[where][listType]":[self currentTitle]} success:^(NSArray *models) {
                 NSMutableArray *shoppingList = [[NSMutableArray alloc] initWithCapacity:models.count];
                 for (LBModel *model in models) {
-                    if ([model[@"listType"] isEqualToString:[self currentTitle]])
-                    {
-                        SLShoppingListItem *item = [[SLShoppingListItem alloc] init];
-                        item.itemText = model[@"itemText"];
-                        item.completed = [model[@"isComplete"]  isEqual: @1] ? YES : NO;
-                        item.itemId = model[@"id"];
-                        [shoppingList addObject:item];
-    
-                    }
+                    SLShoppingListItem *item = [[SLShoppingListItem alloc] init];
+                    item.itemText = model[@"itemText"];
+                    item.completed = [model[@"isComplete"]  isEqual: @1] ? YES : NO;
+                    item.itemId = model[@"id"];
+                    [shoppingList addObject:item];
                 }
                 self.shoppingList = [shoppingList copy];
                 [self.tableView reloadData];
@@ -72,7 +68,6 @@
             
         });
     };
-    
     [objectB invokeStaticMethod:@"filter" parameters:@{@"filter[where][timestamp][gt]":self.latestDataTime} success:staticMethodSuccessBlock failure:^(NSError *error) {
         NSLog(@"fail");
     }];
@@ -105,7 +100,7 @@
 {
     
     [super viewDidLoad];
-    [[ [self adapter] contract] addItem:[SLRESTContractItem itemWithPattern:@"/ShoppingListItems" verb:@"GET"] forMethod:@"ShoppingListItems.filter"];
+    [[[self adapter] contract] addItem:[SLRESTContractItem itemWithPattern:@"/ShoppingListItems" verb:@"GET"] forMethod:@"ShoppingListItems.filter"];
 
     [self refreshData];
     [NSTimer scheduledTimerWithTimeInterval:1.0
@@ -116,18 +111,12 @@
 
     self.parentViewController.navigationItem.rightBarButtonItem = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemAdd target:self action:@selector(myRightButton)];
 
-    
-    NSMutableArray *shoppingList = [[NSMutableArray alloc] initWithCapacity:100];
-    for (int i=0; i<100; i++) {
-        [shoppingList addObject:[SLShoppingListItem initWithItemText:[NSString stringWithFormat:@"Item %d", i] completed:NO]];
-    }
-    self.shoppingList = [shoppingList copy];
 }
 
 -(void)myRightButton
 {
-    UIAlertController* alert = [UIAlertController alertControllerWithTitle:@"My Alert"
-                                                                   message:@"This is an alert."
+    UIAlertController* alert = [UIAlertController alertControllerWithTitle:@"Add new item"
+                                                                   message:@""
                                                             preferredStyle:UIAlertControllerStyleAlert];
     [alert addTextFieldWithConfigurationHandler:^(UITextField * _Nonnull textField) {}];
     

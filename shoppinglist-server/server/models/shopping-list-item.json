@@ -1,0 +1,29 @@
+{
+  "name": "ShoppingListItem",
+  "base": "PersistedModel",
+  "idInjection": true,
+  "options": {
+    "validateUpsert": true
+  },
+  "properties": {
+    "itemText": {
+      "type": "string",
+      "required": false
+    },
+    "isComplete": {
+      "type": "boolean",
+      "required": false
+    },
+    "listType": {
+      "type": "string",
+      "required": false
+    },
+    "timestamp": {
+      "type": "number"
+    }
+  },
+  "validations": [],
+  "relations": {},
+  "acls": [],
+  "methods": {}
+}

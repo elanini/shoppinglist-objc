@@ -17,6 +17,36 @@
 
 
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions {
+    UITabBar *tabBar = ((UITabBarController*)[self.window.rootViewController.childViewControllers firstObject]).tabBar;
+    
+    UITabBarItem *item = [tabBar.items objectAtIndex:0];
+    UIImage *selectedImage = [UIImage imageNamed:@"nec-tab-sel"];
+    selectedImage = [selectedImage imageWithRenderingMode:UIImageRenderingModeAlwaysOriginal];
+    UIImage *unselectedImage = [UIImage imageNamed:@"nec-tab"];
+    unselectedImage = [unselectedImage imageWithRenderingMode:UIImageRenderingModeAlwaysOriginal];
+    [item setImage:unselectedImage];
+    [item setSelectedImage:selectedImage];
+
+    UITabBarItem *item2 = [tabBar.items objectAtIndex:1];
+    selectedImage = [UIImage imageNamed:@"opt-tab-sel"];
+    selectedImage = [selectedImage imageWithRenderingMode:UIImageRenderingModeAlwaysOriginal];
+    unselectedImage = [UIImage imageNamed:@"opt-tab"];
+    unselectedImage = [unselectedImage imageWithRenderingMode:UIImageRenderingModeAlwaysOriginal];
+    [item2 setImage:unselectedImage];
+    [item2 setSelectedImage:selectedImage];
+
+
+    //    UITabBarController *tabController = (UITabBarController *)self.window.rootViewController;
+//    UITabBar *tabBar = (UITabBar*)tabController.tabBar;
+//    
+//    UITabBarItem *item1 = [tabBar.items objectAtIndex:0];
+//    UIImage *selectedImage = [UIImage imageNamed:@"nec-tab-image"];
+//    selectedImage = [selectedImage imageWithRenderingMode:UIImageRenderingModeAlwaysOriginal];
+//    UIImage *unselectedImage = [UIImage imageNamed:@"nec-tab-image"];
+//    unselectedImage = [unselectedImage imageWithRenderingMode:UIImageRenderingModeAlwaysOriginal];
+//    [item1 setImage:unselectedImage];
+//    [item1 setSelectedImage:selectedImage];
+
     // Override point for customization after application launch.
     return YES;
 }
