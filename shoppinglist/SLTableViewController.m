@@ -10,13 +10,13 @@
 #import "SLTableViewCell.h"
 #import "SLShoppingListItem.h"
 #import <LoopBack/LoopBack.h>
-#import "MBProgressHUD.h"
 
 @interface SLTableViewController ()
-@property NSArray *shoppingList;
+@property NSMutableArray <SLShoppingListItem*>*shoppingList;
 @property (strong, nonatomic) LBRESTAdapter *adapter;
 @property (nonatomic) NSNumber *latestDataTime;
 @property NSString *vcTitle;
+@property UIActivityIndicatorView *activityIndicator;
 @end
 
 @implementation SLTableViewController
@@ -31,8 +31,31 @@
 - (LBRESTAdapter *) adapter
 {
     if( !_adapter)
-        _adapter = [LBRESTAdapter adapterWithURL:[NSURL URLWithString:@"http://localhost:3000/api/"]];
+        _adapter = [LBRESTAdapter adapterWithURL:[NSURL URLWithString:@"http://45.55.14.192:3000/api/"]];
     return _adapter;
+}
+
+- (BOOL)tableView:(UITableView *)tableView canEditRowAtIndexPath:(NSIndexPath *)indexPath {
+    return YES;
+}
+
+- (void)tableView:(UITableView *)tableView commitEditingStyle:(UITableViewCellEditingStyle)editingStyle forRowAtIndexPath:(NSIndexPath *)indexPath {
+    if (editingStyle == UITableViewCellEditingStyleDelete) {
+        LBModelRepository *objectB = [self.adapter repositoryWithModelName:@"ShoppingListItems"];
+        [objectB findById:[self.shoppingList objectAtIndex:indexPath.row].itemId success:^(LBModel *model) {
+            NSLog(@"success in find for deletion");
+            [model destroyWithSuccess:^{
+                NSLog(@"success delete");
+                [self.shoppingList removeObjectAtIndex:indexPath.row];
+                [tableView deleteRowsAtIndexPaths:@[indexPath] withRowAnimation:UITableViewRowAnimationAutomatic];
+            } failure:^(NSError *error) {
+                NSLog(@"fail delete");
+            }];
+        } failure:^(NSError *error) {
+            NSLog(@"failure in find for deletion");
+        }];
+        
+    }
 }
 
 
@@ -46,7 +69,7 @@
             return;
         self.latestDataTime = [NSNumber numberWithUnsignedLongLong:[[NSDate date] timeIntervalSince1970]*1000];
         NSLog(@"running success block, time = %@", self.latestDataTime);
-        [MBProgressHUD showHUDAddedTo:self.view animated:YES];
+        [self.activityIndicator startAnimating];
         dispatch_async(dispatch_get_global_queue( DISPATCH_QUEUE_PRIORITY_LOW, 0), ^{
             [objectB invokeStaticMethod:@"filter" parameters:@{@"filter[where][listType]":self.title} success:^(NSArray *models) {
                 NSMutableArray *shoppingList = [[NSMutableArray alloc] initWithCapacity:models.count];
@@ -57,15 +80,20 @@
                     item.itemId = model[@"id"];
                     [shoppingList addObject:item];
                 }
-                self.shoppingList = [shoppingList copy];
+                self.shoppingList = shoppingList;
                 [self.tableView reloadData];
+                dispatch_async(dispatch_get_main_queue(), ^{
+                    NSLog(@"removing hud");
+                    [self.activityIndicator stopAnimating];
+                });
     
             } failure:^(NSError *error) {
-                NSLog(@"error %@", error);
+                dispatch_async(dispatch_get_main_queue(), ^{
+                    NSLog(@"removing hud with fail");
+                    [self.activityIndicator stopAnimating];
+                });
             }];
-            dispatch_async(dispatch_get_main_queue(), ^{
-                [MBProgressHUD hideHUDForView:self.view animated:YES];
-            });
+            
             
         });
     };
@@ -91,7 +119,7 @@
     } failure:^(NSError *error) {
         NSLog(@"fail");
     }];
-    [self refreshData];
+
 }
 
 -(NSString*)currentTitle
@@ -105,6 +133,10 @@
     [super viewDidLoad];
     [[[self adapter] contract] addItem:[SLRESTContractItem itemWithPattern:@"/ShoppingListItems" verb:@"GET"] forMethod:@"ShoppingListItems.filter"];
 
+    UIActivityIndicatorView *actInd=[[UIActivityIndicatorView alloc]
+                                     initWithActivityIndicatorStyle:UIActivityIndicatorViewStyleGray];
+    self.activityIndicator = actInd;
+    self.navigationItem.leftBarButtonItem = [[UIBarButtonItem alloc] initWithCustomView:actInd];
     [self refreshData];
     [NSTimer scheduledTimerWithTimeInterval:1.0
                                      target:self

@@ -18,8 +18,11 @@
 
 
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions {
+    //set up the view controllers programmatically, because it makes more sense this way. tabbarcontroller is the rootviewcontroller in storyboard.
     UITabBarController *tbc = (UITabBarController*)self.window.rootViewController;
     
+    
+    //create and initialize two view controllers, one for optional and one for necessary, and add the plus buttons
     SLTableViewController *vc1 = [[SLTableViewController alloc] init];
     vc1.title = @"Necessary";
     vc1.navigationItem.rightBarButtonItem = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemAdd target:vc1 action:@selector(myRightButton)];
@@ -34,8 +37,8 @@
     
     tbc.viewControllers = [NSArray arrayWithObjects:navc1, navc2,nil];
 
+    //initialize tab bar images
     UITabBar *tabBar = tbc.tabBar;
-    
     UITabBarItem *item = [tabBar.items objectAtIndex:0];
     UIImage *selectedImage = [UIImage imageNamed:@"nec-tab-sel"];
     selectedImage = [selectedImage imageWithRenderingMode:UIImageRenderingModeAlwaysOriginal];

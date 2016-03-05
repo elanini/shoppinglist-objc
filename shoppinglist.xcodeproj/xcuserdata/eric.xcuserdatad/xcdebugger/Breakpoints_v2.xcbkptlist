@@ -10,11 +10,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "shoppinglist/SLTableViewController.m"
-            timestampString = "478847146.265654"
+            timestampString = "478914374.429849"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "42"
-            endingLineNumber = "42"
+            startingLineNumber = "65"
+            endingLineNumber = "65"
             landmarkName = "-refreshData"
             landmarkType = "5">
          </BreakpointContent>
