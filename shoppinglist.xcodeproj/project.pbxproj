@@ -43,6 +43,7 @@
 		07E81F4A1C8A5EA0003C6A31 /* LoopBack.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = LoopBack.framework; sourceTree = "<group>"; };
 		07E81F4C1C8A6996003C6A31 /* MBProgressHUD.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MBProgressHUD.h; sourceTree = "<group>"; };
 		07E81F4D1C8A6996003C6A31 /* MBProgressHUD.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MBProgressHUD.m; sourceTree = "<group>"; };
+		07E81F4F1C8A7DD2003C6A31 /* shoppinglist-server */ = {isa = PBXFileReference; lastKnownFileType = folder; path = "shoppinglist-server"; sourceTree = "<group>"; };
 		07F4B1711C88F52E0063E43A /* shoppinglist.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = shoppinglist.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		07F4B1751C88F52E0063E43A /* main.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
 		07F4B1771C88F52E0063E43A /* AppDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AppDelegate.h; sourceTree = "<group>"; };
@@ -96,6 +97,7 @@
 		07F4B1681C88F52E0063E43A = {
 			isa = PBXGroup;
 			children = (
+				07E81F4F1C8A7DD2003C6A31 /* shoppinglist-server */,
 				07E81F4A1C8A5EA0003C6A31 /* LoopBack.framework */,
 				07F4B1731C88F52E0063E43A /* shoppinglist */,
 				07F4B18D1C88F52F0063E43A /* shoppinglistTests */,
