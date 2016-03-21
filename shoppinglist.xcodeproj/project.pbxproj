@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		0711E8A71C8BD7AC0015D741 /* SLRootViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 0711E8A61C8BD7AC0015D741 /* SLRootViewController.m */; };
 		07E81F4B1C8A5EA0003C6A31 /* LoopBack.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 07E81F4A1C8A5EA0003C6A31 /* LoopBack.framework */; };
 		07F4B1761C88F52E0063E43A /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 07F4B1751C88F52E0063E43A /* main.m */; };
 		07F4B1791C88F52E0063E43A /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 07F4B1781C88F52E0063E43A /* AppDelegate.m */; };
@@ -39,6 +40,8 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		0711E8A61C8BD7AC0015D741 /* SLRootViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SLRootViewController.m; sourceTree = "<group>"; };
+		0711E8A81C8BD7C60015D741 /* SLRootViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SLRootViewController.h; sourceTree = "<group>"; };
 		07E81F4A1C8A5EA0003C6A31 /* LoopBack.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = LoopBack.framework; sourceTree = "<group>"; };
 		07E81F4F1C8A7DD2003C6A31 /* shoppinglist-server */ = {isa = PBXFileReference; lastKnownFileType = folder; path = "shoppinglist-server"; sourceTree = "<group>"; };
 		07F4B1711C88F52E0063E43A /* shoppinglist.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = shoppinglist.app; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -131,6 +134,8 @@
 				07F4B1AC1C88FECE0063E43A /* SLTableViewCell.h */,
 				07F4B1AD1C8900410063E43A /* SLShoppingListItem.m */,
 				07F4B1AF1C89004D0063E43A /* SLShoppingListItem.h */,
+				0711E8A61C8BD7AC0015D741 /* SLRootViewController.m */,
+				0711E8A81C8BD7C60015D741 /* SLRootViewController.h */,
 			);
 			path = shoppinglist;
 			sourceTree = "<group>";
@@ -296,6 +301,7 @@
 			files = (
 				07F4B1A81C88F5F80063E43A /* SLTableViewController.m in Sources */,
 				07F4B1AE1C8900410063E43A /* SLShoppingListItem.m in Sources */,
+				0711E8A71C8BD7AC0015D741 /* SLRootViewController.m in Sources */,
 				07F4B17C1C88F52E0063E43A /* ViewController.m in Sources */,
 				07F4B1791C88F52E0063E43A /* AppDelegate.m in Sources */,
 				07F4B1761C88F52E0063E43A /* main.m in Sources */,

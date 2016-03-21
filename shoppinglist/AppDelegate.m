@@ -15,46 +15,52 @@
 
 @implementation AppDelegate
 
-
+-(void)changeViewController:(UIEvent*)event
+{
+    NSLog(@"changing vc");
+}
 
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions {
     //set up the view controllers programmatically, because it makes more sense this way. tabbarcontroller is the rootviewcontroller in storyboard.
-    UITabBarController *tbc = (UITabBarController*)self.window.rootViewController;
-    
-    
-    //create and initialize two view controllers, one for optional and one for necessary, and add the plus buttons
-    SLTableViewController *vc1 = [[SLTableViewController alloc] init];
-    vc1.title = @"Necessary";
-    vc1.navigationItem.rightBarButtonItem = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemAdd target:vc1 action:@selector(myRightButton)];
-    SLTableViewController *vc2 = [[SLTableViewController alloc] init];
-    vc2.title = @"Optional";
-    vc2.navigationItem.rightBarButtonItem = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemAdd target:vc2 action:@selector(myRightButton)];
-    
-    
-    UINavigationController *navc1 = [[UINavigationController alloc] initWithRootViewController:vc1];
-    UINavigationController *navc2 = [[UINavigationController alloc] initWithRootViewController:vc2];
+//    UITabBarController *tbc = (UITabBarController*)self.window.rootViewController;
+//    
+//    
+//    //create and initialize two view controllers, one for optional and one for necessary, and add the plus buttons
+//    SLTableViewController *vc1 = [[SLTableViewController alloc] init];
+//    vc1.title = @"Necessary";
+//    vc1.navigationItem.rightBarButtonItem = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemAdd target:vc1 action:@selector(myRightButton)];
+//    SLTableViewController *vc2 = [[SLTableViewController alloc] init];
+//    vc2.title = @"Optional";
+//    vc2.navigationItem.rightBarButtonItem = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemAdd target:vc2 action:@selector(myRightButton)];
+//    
+//    
+//    UINavigationController *navc1 = [[UINavigationController alloc] initWithRootViewController:vc1];
+//    UINavigationController *navc2 = [[UINavigationController alloc] initWithRootViewController:vc2];
+//
+//    
+//    tbc.viewControllers = [NSArray arrayWithObjects:navc1, navc2,nil];
+//
+//    //initialize tab bar images
+//    UITabBar *tabBar = tbc.tabBar;
+//    UITabBarItem *item = [tabBar.items objectAtIndex:0];
+//    UIImage *selectedImage = [UIImage imageNamed:@"nec-tab-sel"];
+//    selectedImage = [selectedImage imageWithRenderingMode:UIImageRenderingModeAlwaysOriginal];
+//    UIImage *unselectedImage = [UIImage imageNamed:@"nec-tab"];
+//    unselectedImage = [unselectedImage imageWithRenderingMode:UIImageRenderingModeAlwaysOriginal];
+//    [item setImage:unselectedImage];
+//    [item setSelectedImage:selectedImage];
+//
+//    UITabBarItem *item2 = [tabBar.items objectAtIndex:1];
+//    selectedImage = [UIImage imageNamed:@"opt-tab-sel"];
+//    selectedImage = [selectedImage imageWithRenderingMode:UIImageRenderingModeAlwaysOriginal];
+//    unselectedImage = [UIImage imageNamed:@"opt-tab"];
+//    unselectedImage = [unselectedImage imageWithRenderingMode:UIImageRenderingModeAlwaysOriginal];
+//    [item2 setImage:unselectedImage];
+//    [item2 setSelectedImage:selectedImage];
 
-    
-    tbc.viewControllers = [NSArray arrayWithObjects:navc1, navc2,nil];
-
-    //initialize tab bar images
-    UITabBar *tabBar = tbc.tabBar;
-    UITabBarItem *item = [tabBar.items objectAtIndex:0];
-    UIImage *selectedImage = [UIImage imageNamed:@"nec-tab-sel"];
-    selectedImage = [selectedImage imageWithRenderingMode:UIImageRenderingModeAlwaysOriginal];
-    UIImage *unselectedImage = [UIImage imageNamed:@"nec-tab"];
-    unselectedImage = [unselectedImage imageWithRenderingMode:UIImageRenderingModeAlwaysOriginal];
-    [item setImage:unselectedImage];
-    [item setSelectedImage:selectedImage];
-
-    UITabBarItem *item2 = [tabBar.items objectAtIndex:1];
-    selectedImage = [UIImage imageNamed:@"opt-tab-sel"];
-    selectedImage = [selectedImage imageWithRenderingMode:UIImageRenderingModeAlwaysOriginal];
-    unselectedImage = [UIImage imageNamed:@"opt-tab"];
-    unselectedImage = [unselectedImage imageWithRenderingMode:UIImageRenderingModeAlwaysOriginal];
-    [item2 setImage:unselectedImage];
-    [item2 setSelectedImage:selectedImage];
-
+//    UINavigationController *nav = (UINavigationController*)self.window.rootViewController;
+//    UISegmentedControl *segControl = (UISegmentedControl*)[nav.navigationBar.subviews lastObject];
+//    [segControl addTarget:self action:@selector(changeViewController:) forControlEvents:UIControlEventValueChanged];
 
     // Override point for customization after application launch.
     return YES;
