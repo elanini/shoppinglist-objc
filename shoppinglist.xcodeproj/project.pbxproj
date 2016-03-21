@@ -8,6 +8,7 @@
 
 /* Begin PBXBuildFile section */
 		0711E8A71C8BD7AC0015D741 /* SLRootViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 0711E8A61C8BD7AC0015D741 /* SLRootViewController.m */; };
+		07AF17481CA0745F00277A92 /* SocketIOClientSwift.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 07AF17471CA0745E00277A92 /* SocketIOClientSwift.framework */; };
 		07E81F4B1C8A5EA0003C6A31 /* LoopBack.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 07E81F4A1C8A5EA0003C6A31 /* LoopBack.framework */; };
 		07F4B1761C88F52E0063E43A /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 07F4B1751C88F52E0063E43A /* main.m */; };
 		07F4B1791C88F52E0063E43A /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 07F4B1781C88F52E0063E43A /* AppDelegate.m */; };
@@ -39,9 +40,23 @@
 		};
 /* End PBXContainerItemProxy section */
 
+/* Begin PBXCopyFilesBuildPhase section */
+		07AF17461CA073D300277A92 /* Embed Frameworks */ = {
+			isa = PBXCopyFilesBuildPhase;
+			buildActionMask = 2147483647;
+			dstPath = "";
+			dstSubfolderSpec = 10;
+			files = (
+			);
+			name = "Embed Frameworks";
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXCopyFilesBuildPhase section */
+
 /* Begin PBXFileReference section */
 		0711E8A61C8BD7AC0015D741 /* SLRootViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SLRootViewController.m; sourceTree = "<group>"; };
 		0711E8A81C8BD7C60015D741 /* SLRootViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SLRootViewController.h; sourceTree = "<group>"; };
+		07AF17471CA0745E00277A92 /* SocketIOClientSwift.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = SocketIOClientSwift.framework; path = Carthage/Build/iOS/SocketIOClientSwift.framework; sourceTree = "<group>"; };
 		07E81F4A1C8A5EA0003C6A31 /* LoopBack.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = LoopBack.framework; sourceTree = "<group>"; };
 		07E81F4F1C8A7DD2003C6A31 /* shoppinglist-server */ = {isa = PBXFileReference; lastKnownFileType = folder; path = "shoppinglist-server"; sourceTree = "<group>"; };
 		07F4B1711C88F52E0063E43A /* shoppinglist.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = shoppinglist.app; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -73,6 +88,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				07AF17481CA0745F00277A92 /* SocketIOClientSwift.framework in Frameworks */,
 				07E81F4B1C8A5EA0003C6A31 /* LoopBack.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -97,6 +113,7 @@
 		07F4B1681C88F52E0063E43A = {
 			isa = PBXGroup;
 			children = (
+				07AF17471CA0745E00277A92 /* SocketIOClientSwift.framework */,
 				07E81F4F1C8A7DD2003C6A31 /* shoppinglist-server */,
 				07E81F4A1C8A5EA0003C6A31 /* LoopBack.framework */,
 				07F4B1731C88F52E0063E43A /* shoppinglist */,
@@ -176,6 +193,8 @@
 				07F4B16D1C88F52E0063E43A /* Sources */,
 				07F4B16E1C88F52E0063E43A /* Frameworks */,
 				07F4B16F1C88F52E0063E43A /* Resources */,
+				07AF17461CA073D300277A92 /* Embed Frameworks */,
+				07AF17491CA0746E00277A92 /* ShellScript */,
 			);
 			buildRules = (
 			);
@@ -293,6 +312,23 @@
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXResourcesBuildPhase section */
+
+/* Begin PBXShellScriptBuildPhase section */
+		07AF17491CA0746E00277A92 /* ShellScript */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+				"$(SRCROOT)/Carthage/Build/iOS/SocketIOClientSwift.framework",
+			);
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "/usr/local/bin/carthage copy-frameworks";
+		};
+/* End PBXShellScriptBuildPhase section */
 
 /* Begin PBXSourcesBuildPhase section */
 		07F4B16D1C88F52E0063E43A /* Sources */ = {
@@ -448,10 +484,13 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CLANG_ENABLE_MODULES = YES;
 				DEFINES_MODULE = YES;
+				EMBEDDED_CONTENT_CONTAINS_SWIFT = YES;
 				ENABLE_BITCODE = NO;
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
 					"$(PROJECT_DIR)",
+					"$(PROJECT_DIR)/shoppinglist-server",
+					"$(PROJECT_DIR)/Carthage/Build/iOS",
 				);
 				GCC_PREFIX_HEADER = "";
 				HEADER_SEARCH_PATHS = "";
@@ -471,10 +510,13 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CLANG_ENABLE_MODULES = YES;
 				DEFINES_MODULE = YES;
+				EMBEDDED_CONTENT_CONTAINS_SWIFT = YES;
 				ENABLE_BITCODE = NO;
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
 					"$(PROJECT_DIR)",
+					"$(PROJECT_DIR)/shoppinglist-server",
+					"$(PROJECT_DIR)/Carthage/Build/iOS",
 				);
 				GCC_PREFIX_HEADER = "";
 				HEADER_SEARCH_PATHS = "";

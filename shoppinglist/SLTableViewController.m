@@ -10,6 +10,7 @@
 #import "SLTableViewCell.h"
 #import "SLShoppingListItem.h"
 #import <LoopBack/LoopBack.h>
+#import <SocketIOClientSwift/SocketIOClientSwift-Swift.h>
 
 @interface SLTableViewController ()
 @property NSMutableArray <SLShoppingListItem*>*shoppingList;
@@ -131,6 +132,9 @@
 {
     
     [super viewDidLoad];
+    
+    
+    
     [[[self adapter] contract] addItem:[SLRESTContractItem itemWithPattern:@"/ShoppingListItems" verb:@"GET"] forMethod:@"ShoppingListItems.filter"];
 
     UIActivityIndicatorView *actInd=[[UIActivityIndicatorView alloc]

@@ -20,7 +20,6 @@
                     </view>
                     <navigationItem key="navigationItem" id="9GC-Qh-WY1">
                         <nil key="title"/>
-                        <barButtonItem key="leftBarButtonItem" title="⚙" id="6TC-6i-Ezk"/>
                         <segmentedControl key="titleView" opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="top" segmentControlStyle="bar" selectedSegmentIndex="0" id="IZl-ws-6BS">
                             <rect key="frame" x="180" y="7" width="240" height="30"/>
                             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
